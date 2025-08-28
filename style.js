@@ -90,7 +90,30 @@ function renderBoard(arr, borders = [], blinkPositions = []) {
       if (shape[c][r]) {
         const colorIndex = (arr[idx % arr.length] - 1) % colors.length;
         cell.style.background = colors[colorIndex];
-        cell.textContent = idxToShow(arr[idx % arr.length]);
+        
+        // 創建主要文字內容
+        const mainText = document.createElement("div");
+        mainText.textContent = idxToShow(arr[idx % arr.length]);
+        mainText.style.fontSize = "20px";
+        mainText.style.fontWeight = "bold";
+        
+        // 創建位置編號（右下角小數字）
+        const positionNumber = document.createElement("div");
+        positionNumber.textContent = mappingRealIdxToFakeIdx[mappingReverse[idx]];
+        positionNumber.style.position = "absolute";
+        positionNumber.style.bottom = "2px";
+        positionNumber.style.right = "2px";
+        positionNumber.style.fontSize = "10px";
+        positionNumber.style.fontWeight = "normal";
+        positionNumber.style.opacity = "0.7";
+        positionNumber.style.lineHeight = "1";
+        
+        // 設置cell為相對定位，讓子元素可以絕對定位
+        cell.style.position = "relative";
+        
+        // 將元素添加到cell中
+        cell.appendChild(mainText);
+        cell.appendChild(positionNumber);
 
         // 檢查是否需要閃爍
         if (blinkPositions.includes(idx)) {
@@ -494,6 +517,10 @@ const mapping = {
   33: 5,
 };
 
+const mappingReverse = Object.fromEntries(
+  Object.entries(mapping).map(([key, value]) => [value, key])
+);
+
 originalToTransfer = (inputArr) => {
   let transferArr = [];
   for (let i = 0; i < inputArr.length; i++) {
@@ -543,6 +570,43 @@ const mappingFakeIdxToRealIdx = {
   44: 31,
   45: 32,
   46: 33,
+};
+
+const mappingRealIdxToFakeIdx = {
+  0: 1,
+  1: 2,
+  2: 3,
+  3: 4,
+  4: 5,
+  5: 8,
+  6: 9,
+  7: 10,
+  8: 11,
+  9: 12,
+  10: 15,
+  11: 16,
+  12: 17,
+  13: 18,
+  14: 19,
+  15: 22,
+  16: 23,
+  17: 24,
+  18: 25,
+  19: 26,
+  20: 29,
+  21: 30,
+  22: 31,
+  23: 32,
+  24: 33,
+  25: 36,
+  26: 37,
+  27: 38,
+  28: 39,
+  29: 40,
+  30: 43,
+  31: 44,
+  32: 45,
+  33: 46,
 };
 
 // 將假位置轉換為真實位置的函數

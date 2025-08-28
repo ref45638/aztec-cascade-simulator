@@ -1,0 +1,212 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.input-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.input-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.input-container input,
+.input-container textarea {
+  width: 600px;
+  padding: 8px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-right: 10px;
+  font-family: monospace;
+}
+
+.input-container textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.input-container button {
+  padding: 8px 16px;
+  background: #007acc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.input-container button:hover {
+  background: #005a99;
+}
+
+.boards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.board-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.board-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+.arrow-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.arrow-down {
+  font-size: 30px;
+  color: #007acc;
+  font-weight: bold;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.board {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.cell {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  border: 2px solid #eee;
+  box-sizing: border-box;
+  transition: background 0.2s;
+  background: #ccc;
+  box-shadow: 0 2px 7px #0001;
+  z-index: 9999;
+  user-select: none; /* 防止文字被選取 */
+  -webkit-user-select: none; /* Safari 支援 */
+  -moz-user-select: none; /* Firefox 支援 */
+  -ms-user-select: none; /* IE/Edge 支援 */
+}
+
+.cell.blink {
+  animation: cellBlink 1s infinite;
+  cursor: pointer; /* 添加指針游標提示可點擊 */
+}
+
+.cell.blink-hidden {
+  opacity: 0; /* 完全透明但仍可點擊 */
+  animation: none; /* 停止動畫 */
+  cursor: pointer; /* 保持可點擊的游標提示 */
+}
+
+@keyframes cellBlink {
+  0%,
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.9;
+    transform: scale(1.03);
+  }
+  75% {
+    opacity: 0.95;
+    transform: scale(0.97);
+  }
+}
+
+/* 添加點擊後的淡出效果 */
+.cell.fade-out {
+  animation: fadeOut 0.5s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+}
+
+.border-overlay {
+  position: absolute;
+  border: 2px solid #c9c8c8;
+  border-radius: 15px;
+  pointer-events: none; /* 不阻擋點擊事件 */
+  z-index: 10;
+}
+
+.border-overlay-silver {
+  border: 3px solid #929292;
+  background: rgba(192, 192, 192, 0.15);
+  box-shadow: 0 0 15px rgba(192, 192, 192, 0.4);
+  background: #929292;
+}
+
+.border-overlay-gold {
+  border: 3px solid #ffd700;
+  background: rgba(255, 215, 0, 0.15);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  background: #ffd700;
+}
+
+.cell.bordered {
+  border: 3px solid #ff0000;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+.empty {
+  visibility: hidden;
+}

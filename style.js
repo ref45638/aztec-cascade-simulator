@@ -1,13 +1,14 @@
 // 12種顏色
 const colors = [
+  "#ccccccff", // 0 SF
   "#ffd900ff", // 1 WW
-  "#FFB347", // 2 H1
+  "#FFB347ff", // 2 H1
   "#e4633bff", // 3 H2
   "#ff7eeeff", // 4 H3
   "#614a8aff", // 5 H4
-  "#6699CC", // 6 H5
+  "#6699CCff", // 6 H5
   "#1b7258ff", // 7 H6
-  "#A0522D", // 8 A
+  "#A0522Dff", // 8 A
   "#a057aaff", // 9 K
   "#a188caff", // 10 Q
   "#67998bff", // 11 J
@@ -88,18 +89,19 @@ function renderBoard(arr, borders = [], blinkPositions = []) {
       cell.dataset.position = idx;
 
       if (shape[c][r]) {
-        const colorIndex = (arr[idx % arr.length] - 1) % colors.length;
+        const colorIndex = arr[idx % arr.length] % colors.length;
         cell.style.background = colors[colorIndex];
-        
+
         // 創建主要文字內容
         const mainText = document.createElement("div");
         mainText.textContent = idxToShow(arr[idx % arr.length]);
         mainText.style.fontSize = "20px";
         mainText.style.fontWeight = "bold";
-        
+
         // 創建位置編號（右下角小數字）
         const positionNumber = document.createElement("div");
-        positionNumber.textContent = mappingRealIdxToFakeIdx[mappingReverse[idx]];
+        positionNumber.textContent =
+          mappingRealIdxToFakeIdx[mappingReverse[idx]];
         positionNumber.style.position = "absolute";
         positionNumber.style.bottom = "2px";
         positionNumber.style.right = "2px";
@@ -107,10 +109,10 @@ function renderBoard(arr, borders = [], blinkPositions = []) {
         positionNumber.style.fontWeight = "normal";
         positionNumber.style.opacity = "0.7";
         positionNumber.style.lineHeight = "1";
-        
+
         // 設置cell為相對定位，讓子元素可以絕對定位
         cell.style.position = "relative";
-        
+
         // 將元素添加到cell中
         cell.appendChild(mainText);
         cell.appendChild(positionNumber);
